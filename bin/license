@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# paths
+MIT="/Users/arakilian0/dev/.shell/lib/license/mit/LICENSE.md"
+GNU2="/Users/arakilian0/dev/.shell/lib/license/gnu/v2/LICENSE"
+GNU3="/Users/arakilian0/dev/.shell/lib/license/gnu/v3/LICENSE"
+APACHE2="/Users/arakilian0/dev/.shell/lib/license/apache/v2/LICENSE"
+MOZILLA2="/Users/arakilian0/dev/.shell/lib/license/mozilla/v2/LICENSE"
+ECLIPSE2="/Users/arakilian0/dev/.shell/lib/license/eclipse/v2/LICENSE"
+UNLICENSE="/Users/arakilian0/dev/.shell/lib/license/unlicense/LICENSE.md"
+
+# output styling
+bold=$(tput bold)
+blue=$'\e[1;34m'
+red=$'\e[1;91m'
+yellow=$'\e[1;93m'
+gray=$'\e[1;90m'
+bg=$'\e[40m'
+end=$'\e[0m'
+
+# help function
+help_func() {
+  echo "${blue}Usage:${end} license ${bold}-option${end}"
+  echo ""
+  echo "${bold}-mit${end} (default)     Creates an MIT License File"
+  echo "${bold}-gnu2${end}              Creates an MIT License File"
+  echo "${bold}-gnu3${end}              Creates an MIT License File"
+  echo "${bold}-apache2${end}           Creates an MIT License File"
+  echo "${bold}-mozilla2${end}          Creates an MIT License File"
+  echo "${bold}-eclipse2${end}          Creates an MIT License File"
+  echo "${bold}-unlicense${end}         Creates an MIT License File"
+  echo ""
+  echo "${gray}A path argument can be passed as well.${end}"
+  echo "${gray}Example:${end} license -gnu3 ~/dev/myproject"
+}
+
+# license copier
+copy_license() {
+  if [ -n $2 ] && [ -d $2 ]; then
+    if [ "$2" == "" ]; then
+      cp $1 .
+    else
+      cp $1 $2
+    fi
+  else
+    echo "${yellow}${bg}WARNING${end}${end} provided argument (${red}$2${end}) is not a directory nor a valid license"
+  fi
+}
+
+# Argument Handler
+case $1 in
+  # Help Handler
+  'help') help_func ;;
+
+  # License Handler
+  '-mit') copy_license $MIT $2 ;;
+  '-gnu2') copy_license $GNU2 $2 ;;
+  '-gnu3') copy_license $GNU3 $2 ;;
+  '-apache2') copy_license $APACHE2 $2 ;;
+  '-mozilla2') copy_license $MOZILLA2 $2 ;;
+  '-eclipse2') copy_license $ECLIPSE2 $2 ;;
+  '-unlicense') copy_license $UNLICENSE $2 ;;
+  *) copy_license $MIT $1 ;;
+esac
