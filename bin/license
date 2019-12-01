@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# paths
+# License Source Paths
 MIT="/Users/arakilian0/dev/.shell/lib/license/mit/LICENSE.md"
 GNU2="/Users/arakilian0/dev/.shell/lib/license/gnu/v2/LICENSE"
 GNU3="/Users/arakilian0/dev/.shell/lib/license/gnu/v3/LICENSE"
@@ -9,7 +9,7 @@ MOZILLA2="/Users/arakilian0/dev/.shell/lib/license/mozilla/v2/LICENSE"
 ECLIPSE2="/Users/arakilian0/dev/.shell/lib/license/eclipse/v2/LICENSE"
 UNLICENSE="/Users/arakilian0/dev/.shell/lib/license/unlicense/LICENSE.md"
 
-# output styling
+# Output Styling
 bold=$(tput bold)
 blue=$'\e[1;34m'
 red=$'\e[1;91m'
@@ -18,7 +18,7 @@ gray=$'\e[1;90m'
 bg=$'\e[40m'
 end=$'\e[0m'
 
-# help function
+# Help Function
 help_func() {
   echo "${blue}Usage:${end} license ${bold}-option${end}"
   echo ""
@@ -32,9 +32,10 @@ help_func() {
   echo ""
   echo "${gray}A path argument can be passed as well.${end}"
   echo "${gray}Example:${end} license -gnu3 ~/dev/myproject"
+  echo ""
 }
 
-# license copier
+# License Function
 copy_license() {
   if [ -n $2 ] && [ -d $2 ]; then
     if [ "$2" == "" ]; then
@@ -47,12 +48,11 @@ copy_license() {
   fi
 }
 
-# Argument Handler
 case $1 in
   # Help Handler
   'help') help_func ;;
 
-  # License Handler
+  # License Handlers
   '-mit') copy_license $MIT $2 ;;
   '-gnu2') copy_license $GNU2 $2 ;;
   '-gnu3') copy_license $GNU3 $2 ;;
@@ -60,5 +60,7 @@ case $1 in
   '-mozilla2') copy_license $MOZILLA2 $2 ;;
   '-eclipse2') copy_license $ECLIPSE2 $2 ;;
   '-unlicense') copy_license $UNLICENSE $2 ;;
+
+  # Default Handler
   *) copy_license $MIT $1 ;;
 esac

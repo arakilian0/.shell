@@ -1,3 +1,32 @@
 #!/bin/bash
 
-echo "asd"
+# Output Styling
+bold=$(tput bold)
+blue=$'\e[1;34m'
+end=$'\e[0m'
+
+# Help Function
+help_func() {
+  echo "${blue}Usage:${end} conf ${bold}-option${end}"
+  echo ""
+  echo "${bold}-bash${end} (default)     Creates an MIT License File"
+  echo "${bold}-bashrc${end}             Creates an MIT License File"
+  echo "${bold}-git${end}                Creates an MIT License File"
+  echo ""
+}
+
+case $1 in
+  # Help Handler
+  'help') help_func ;;
+
+  # Configuration Handlers
+  '-bash') atom ~/.bash_profile ;;
+  '-bashrc') atom ~/.bashrc ;;
+  '-bashlog') atom ~/.bash_history ;;
+  '-git') atom ~/.gitconfig ;;
+
+  # add new handlers here
+
+  # Default Handler
+  *) atom ~/.bash_profile ;;
+esac
